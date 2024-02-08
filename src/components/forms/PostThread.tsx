@@ -18,7 +18,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 
 import { ThreadValidation } from "@/lib/validations/thread";
-import { createThread } from "@/lib/actions/thread.action";
+import { createThread } from "@/lib/actions/thread.actions";
 
 interface Props {
   userId: string;
@@ -53,7 +53,8 @@ function PostThread({ userId }: Props) {
     <Form {...form}>
       <form
         className='mt-10 flex flex-col justify-start gap-10'
-        onSubmit={form.handleSubmit(onSubmit)}>
+        onSubmit={form.handleSubmit(onSubmit)}
+      >
         <FormField
           control={form.control}
           name='thread'

@@ -19,11 +19,11 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 
+import { useUploadThing } from "@/lib/uploadthing";
 import { isBase64Image } from "@/lib/utils";
 
 import { UserValidation } from "@/lib/validations/user";
-import { useUploadThing } from "@/lib/uploadThing";
-import { updateUser } from "@/lib/actions/user.action";
+import { updateUser } from "@/lib/actions/user.actions";
 
 interface Props {
   user: {
@@ -61,8 +61,8 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
     if (hasImageChanged) {
       const imgRes = await startUpload(files);
 
-      if (imgRes && imgRes[0].url) {
-        values.profile_photo = imgRes[0].url;
+      if (imgRes && imgRes[0].fileUrl) {
+        values.profile_photo = imgRes[0].fileUrl;
       }
     }
 
@@ -109,7 +109,8 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
     <Form {...form}>
       <form
         className='flex flex-col justify-start gap-10'
-        onSubmit={form.handleSubmit(onSubmit)}>
+        onSubmit={form.handleSubmit(onSubmit)}
+      >
         <FormField
           control={form.control}
           name='profile_photo'
@@ -143,8 +144,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
                   className='account-form_image-input'
                   onChange={(e) => handleImage(e, field.onChange)}
                 />
-              </FormControl>{" "}
-              <FormMessage />
+              </FormControl>
             </FormItem>
           )}
         />
